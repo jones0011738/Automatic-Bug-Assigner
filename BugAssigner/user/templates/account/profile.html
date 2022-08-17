@@ -1,0 +1,74 @@
+{% extends 'dashbase.html' %} {% block title %}AutoBug{% endblock title %}
+{%block content %}
+{% load static %}
+
+	<input type="checkbox" id="checkbox">
+	<header class="header">
+        <h2 class="u-name"><a href="{% url "user:dashboard" %}">AUTO <b>BUG</b></a>
+			<label for="checkbox">
+				<i id="navbtn" class="fa fa-bars" aria-hidden="true"></i>
+			</label>
+		</h2>
+        <a href="{% url "user:dashboard" %}">
+            <i class="fa fa-user" aria-hidden="true"></i></a>
+	</header>
+	<div class="body">
+		<nav class="side-bar">
+			<div class="user-p">
+        <img src="{% if request.user.user_profile.photo %}{{ request.user.user_profile.photo.url }}{% else %}{% static "img/no_image.jpg" %}{% endif %}">
+        <h4>{{ request.user.username }}</h4>
+			</div>
+			<ul>
+                                <li>
+					<a href="#">
+						<i class="fa fa-desktop" aria-hidden="true"></i>
+						<span>Predictions</span>
+					</a>
+				</li>
+								<li>
+					<a href="#">
+						<i class="fa fa-info-circle" aria-hidden="true"></i>
+						<span>About</span>
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<i class="fa fa-cog" aria-hidden="true"></i>
+						<span>Account Setting</span>
+					</a>
+				</li>
+				<li>
+          <a href="{% url "user:logout" %}">
+						<i class="fa fa-power-off" aria-hidden="true"></i>
+						<span>Logout</span>
+					</a>
+				</li>
+			</ul>
+		</nav>
+        <section class="content2">
+        <form method="post" enctype="multipart/form-data" class="predform">
+            {% csrf_token %}
+            <h1>Update Profile</h1>
+            <hr>
+            <div class="image">
+            <label >Change Avatar:</label>
+            {{ profile_form.photo }}
+            </div>
+            <div class="image">
+            <label >Username:</label>
+            {{ user_form.username }}
+            </div>
+            <div class="image">
+            <label>Email:</label>
+            {{ user_form.email }}
+            </div>
+            <br><br>
+            <button type="submit" class="morepred">Save Changes</button>
+            <button type="reset" class="morepred">Reset</button>
+        </form>
+		</section>
+	</div>
+
+
+
+{% endblock content %}

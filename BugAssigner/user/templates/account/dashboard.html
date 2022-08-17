@@ -1,0 +1,65 @@
+{% extends 'dashbase.html' %} {% block title %}AutoBug{% endblock title %}
+{%block content %}
+{% load static %}
+
+	<input type="checkbox" id="checkbox">
+	<header class="header">
+        <h2 class="u-name"><a href="{% url "user:dashboard" %}">AUTO <b>BUG</b></a>
+			<label for="checkbox">
+				<i id="navbtn" class="fa fa-bars" aria-hidden="true"></i>
+			</label>
+		</h2>
+        <a href="{% url "user:profile" %}">
+            <i class="fa fa-user" aria-hidden="true"></i></a>
+	</header>
+	<div class="body">
+		<nav class="side-bar">
+			<div class="user-p">
+        <img src="{% if request.user.user_profile.photo %}{{ request.user.user_profile.photo.url }}{% else %}{% static "img/no_image.jpg" %}{% endif %}">
+        <h4>{{ request.user.username }}</h4>
+			</div>
+			<ul>
+        <li>
+          <a href="{% url "user:predictions" %}">
+						<i class="fa fa-desktop" aria-hidden="true"></i>
+						<span>Predictions</span>
+					</a>
+				</li>
+								<li>
+					<a href="#">
+						<i class="fa fa-info-circle" aria-hidden="true"></i>
+						<span>About</span>
+					</a>
+				</li>
+				<li>
+                    <a href="{% url "user:profile" %}">
+						<i class="fa fa-cog" aria-hidden="true"></i>
+						<span>Account Setting</span>
+					</a>
+				</li>
+				<li>
+          <a href="{% url "user:logout" %}">
+						<i class="fa fa-power-off" aria-hidden="true"></i>
+						<span>Logout</span>
+					</a>
+				</li>
+			</ul>
+		</nav>
+		<section class="content2">
+      <form class="predform" type="submit" method="post">
+        <div class="input-wrap">
+        <label>Title</label>
+        {{ pred_form.title }}
+        </div>
+        <div class="input-wrap">
+          <label>Description</label>
+          {{ pred_form.description }}
+          </div>
+          {% csrf_token %}
+        <p><input type="submit" value="Predict" class="predict-btn"></p>
+		</section>
+	</div>
+
+
+
+{% endblock content %}
